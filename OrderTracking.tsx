@@ -248,59 +248,63 @@ function PromoBanner() {
       style={{
         height: 80,
         borderRadius: 12,
-        background: "linear-gradient(123.23deg, #feedda 2.47%, #fff7f2 49.78%)",
+        background: "linear-gradient(-56.77deg, #FEEBDA 2.47%, #FFFAF6 49.78%)",
       }}
     >
-      {/* Doctors illustration */}
-      <div className="absolute left-0 top-0 h-full" style={{ width: 86 }}>
-        <svg width="86" height="80" viewBox="0 0 86 80" fill="none">
-          {/* Female doctor */}
-          <ellipse cx="30" cy="22" rx="10" ry="10" fill="#F7D6C8" />
-          <path d="M22 19 Q24 12 30 11 Q36 12 38 19" fill="#3A2820" />
-          <path d="M24 40 Q24 50 30 50 Q36 50 36 40" fill="#F7D6C8" />
-          <path d="M18 80 Q20 55 30 52 Q40 55 42 80" fill="#5B6AC1" />
-          <circle cx="30" cy="54" r="2.5" fill="none" stroke="#d0d0d0" strokeWidth="1.5" />
-          {/* Male doctor */}
-          <ellipse cx="58" cy="24" rx="10" ry="10" fill="#F5C5B8" />
-          <path d="M50 21 Q52 15 58 14 Q64 15 66 21" fill="#1A1A1A" />
-          <path d="M52 42 Q52 52 58 52 Q64 52 64 42" fill="#F5C5B8" />
-          <path d="M46 80 Q48 57 58 54 Q68 57 70 80" fill="#A0C4E8" />
-          <circle cx="58" cy="56" r="2.5" fill="none" stroke="#d0d0d0" strokeWidth="1.5" />
-        </svg>
+      {/* Orange rotated accent shape */}
+      <div
+        className="absolute"
+        style={{ left: -66, top: -18, width: 154, height: 154 }}
+      >
+        <div
+          style={{
+            position: "absolute", top: "50%", left: 0,
+            transform: "translateY(-50%)", width: 154, height: 154,
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          <div style={{ transform: "rotate(-45deg)" }}>
+            <div
+              style={{
+                background: "#F27400", width: 112, height: 106,
+                borderRadius: 23, opacity: 0.16,
+              }}
+            />
+          </div>
+        </div>
       </div>
+
+      {/* Illustration — left 87 px of the Figma banner screenshot */}
+      <img
+        src="/surgery-banner.png"
+        alt=""
+        aria-hidden
+        style={{
+          position: "absolute", left: 0, top: 0,
+          width: 87, height: 80,
+          objectFit: "cover", objectPosition: "left center",
+        }}
+      />
 
       {/* Text */}
       <div
-        className="absolute flex flex-col justify-center gap-1"
-        style={{ left: 90, right: 40, top: 0, bottom: 0 }}
+        className="absolute"
+        style={{ left: 87, right: 24, top: 0, bottom: 0, display: "flex", alignItems: "center" }}
       >
         <p
           style={{
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 600,
-            color: colors.textPrimary,
+            color: "#252D38",
             lineHeight: "18px",
             fontFamily: "'Lexend Deca', sans-serif",
+            letterSpacing: 0,
           }}
         >
-          Know about Surgery costs,
-          <br />
-          Coverage, and more
+          Know about Surgery costs, Coverage, and more
         </p>
       </div>
 
-      {/* Chevron */}
-      <div className="absolute right-4 top-1/2 -translate-y-1/2">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M6 3l5 5-5 5"
-            stroke="#f27400"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
     </div>
   );
 }
