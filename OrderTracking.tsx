@@ -48,6 +48,7 @@ type Order = {
   items: MedicineItem[];
   moreCount?: number;
   category: string;
+  vendorName?: string;
 };
 
 type FilterTab = {
@@ -130,7 +131,8 @@ const ORDERS: Order[] = [
     status: "Approved",
     orderedOn: "22-May-2024",
     eta: "22-May-2024",
-    store: "Lenskart",
+    vendorName: "Lenskart",
+    store: "Store",
     location: "Lenskart, HSR Layout Bangalore",
     items: [],
     category: "vision",
@@ -575,36 +577,51 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
             {/* Store row */}
             {order.category === "vision" ? (
               <div className="flex flex-col min-w-0" style={{ gap: 2 }}>
-                <div className="flex items-center" style={{ gap: 2 }}>
-                  <img src="/icon-store.svg" alt="" style={{ width: 12, height: 12, flexShrink: 0 }} />
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 400,
-                      color: colors.gray900,
-                      fontFamily: "'Lexend Deca', sans-serif",
-                      lineHeight: "20px",
-                    }}
-                  >
-                    {order.store}
-                  </span>
-                </div>
-                <div className="flex items-center min-w-0" style={{ gap: 2 }}>
-                  <img src="/icon-location.svg" alt="" style={{ width: 12, height: 12, flexShrink: 0 }} />
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 400,
-                      color: colors.gray700,
-                      fontFamily: "'Lexend Deca', sans-serif",
-                      lineHeight: "20px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {order.location}
-                  </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 400,
+                    color: colors.gray900,
+                    fontFamily: "'Lexend Deca', sans-serif",
+                    lineHeight: "20px",
+                  }}
+                >
+                  {order.vendorName}
+                </span>
+                <div className="flex items-center min-w-0" style={{ gap: 4 }}>
+                  <div className="flex items-center shrink-0" style={{ gap: 2 }}>
+                    <img src="/icon-store.svg" alt="" style={{ width: 12, height: 12 }} />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 400,
+                        color: colors.gray700,
+                        fontFamily: "'Lexend Deca', sans-serif",
+                        lineHeight: "20px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.store}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: 14, color: colors.gray700, fontWeight: 300, fontFamily: "'Lexend Deca', sans-serif" }}>•</span>
+                  <div className="flex items-center min-w-0" style={{ gap: 2 }}>
+                    <img src="/icon-location.svg" alt="" style={{ width: 12, height: 12, flexShrink: 0 }} />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 400,
+                        color: colors.gray700,
+                        fontFamily: "'Lexend Deca', sans-serif",
+                        lineHeight: "20px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.location}
+                    </span>
+                  </div>
                 </div>
               </div>
             ) : (
