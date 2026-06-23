@@ -477,22 +477,6 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
       <div className="flex flex-col" style={{ gap: 12, paddingBottom: 4 }}>
         {/* Order info */}
         <div className="flex flex-col" style={{ gap: 4, paddingLeft: 16, paddingRight: 16 }}>
-          {/* Patient name */}
-          <p
-            style={{
-              fontSize: 14,
-              fontWeight: 400,
-              color: colors.gray900,
-              fontFamily: "'Lexend Deca', sans-serif",
-              lineHeight: "20px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {order.patient}
-          </p>
-
           {/* Order ID / Date row */}
           <div
             className="flex items-center gap-2"
@@ -512,6 +496,22 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
             )}
             <span>Order ID: {order.id}</span>
           </div>
+
+          {/* Patient name */}
+          <p
+            style={{
+              fontSize: 14,
+              fontWeight: 400,
+              color: colors.gray900,
+              fontFamily: "'Lexend Deca', sans-serif",
+              lineHeight: "20px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {order.patient}
+          </p>
 
           {/* ETA / delivery status */}
           <div className="flex items-center" style={{ gap: 4 }}>
