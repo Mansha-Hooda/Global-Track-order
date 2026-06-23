@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders — MediBuddy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Lexend Deca', 'sans-serif'],
+          },
+          colors: {
+            'brand-25':  '#f1f7ff',
+            'brand-200': '#9acbff',
+            'brand-500': '#1a73e8',
+            'brand-600': '#1565d8',
+            'gray-50':   '#ebeef1',
+            'gray-100':  '#dbe0e6',
+            'gray-200':  '#c2ccd6',
+            'gray-500':  '#6b7a8d',
+            'gray-700':  '#47566a',
+            'gray-900':  '#252d38',
+            'orange-25': '#fff7f0',
+            'orange-100':'#ffe8d2',
+            'orange-500':'#f27400',
+            'green-500': '#17a34a',
+            'red-dot':   '#e53e3e',
+          },
+          boxShadow: {
+            'elevation-1': '0px 1px 1px rgba(0,0,0,0.02), 0px 2px 4px rgba(0,0,0,0.04)',
+            'elevation-2': '0px 1px 4px rgba(0,0,0,0.04), 0px 4px 10px rgba(0,0,0,0.05)',
+          },
+          borderRadius: {
+            'pill': '64px',
+            'card': '12px',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #f0f2f5; font-family: 'Lexend Deca', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .mobile-shell {
+      width: 390px;
+      max-width: 100vw;
+      min-height: 100vh;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Shell -->
+  <div class="mobile-shell">
+
+    <!-- ───────────── STATUS BAR ───────────── -->
+    <div class="flex items-center justify-between px-5 pt-3 pb-1 bg-white shrink-0" style="height:28px">
+      <span class="text-[11px] font-semibold text-gray-900 leading-none">11:27 PM</span>
+      <div class="flex items-center gap-1.5">
+        <!-- Signal bars -->
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="6" width="3" height="6" rx="1" fill="#252D38"/>
+          <rect x="4.5" y="4" width="3" height="8" rx="1" fill="#252D38"/>
+          <rect x="9" y="2" width="3" height="10" rx="1" fill="#252D38"/>
+          <rect x="13.5" y="0" width="3" height="12" rx="1" fill="#252D38"/>
+        </svg>
+        <!-- WiFi -->
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 9.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" fill="#252D38"/>
+          <path d="M5.17 7.17a4 4 0 0 1 5.66 0" stroke="#252D38" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M2.34 4.34a8 8 0 0 1 11.32 0" stroke="#252D38" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <!-- Battery -->
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="#252D38" stroke-opacity="0.35"/>
+          <rect x="2" y="2" width="17" height="8" rx="1.5" fill="#252D38"/>
+          <path d="M23 4v4a2 2 0 0 0 0-4z" fill="#252D38" fill-opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ───────────── HEADER ───────────── -->
+    <div class="flex items-center gap-2 px-4 py-4 bg-white shadow-elevation-2 shrink-0" style="height:56px">
+      <button aria-label="Go back" class="w-6 h-6 flex items-center justify-center shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="#252D38" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <span class="text-base font-medium text-gray-900 leading-6">My Orders</span>
+    </div>
+
+    <!-- ───────────── DIVIDER ───────────── -->
+    <div class="h-px bg-gray-100 shrink-0 mx-0"></div>
+
+    <!-- ───────────── SCROLLABLE CONTENT ───────────── -->
+    <div class="flex-1 overflow-y-auto bg-white">
+
+      <!-- BANNER -->
+      <div class="mx-4 mt-4 rounded-card overflow-hidden shrink-0" style="height:80px; background: linear-gradient(-56.77deg, #feedda 2.47%, #fff7f2 49.78%);">
+        <div class="relative flex items-center h-full">
+          <!-- Illustration -->
+          <div class="absolute left-0 top-0 h-full w-[86px] overflow-hidden flex items-end justify-center">
+            <!-- Two doctor figures simplified as SVG -->
+            <svg width="86" height="80" viewBox="0 0 86 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Female doctor -->
+              <circle cx="30" cy="22" r="10" fill="#F7D6C8"/>
+              <path d="M16 70 Q20 50 30 48 Q40 50 44 70" fill="#5B6AC1"/>
+              <path d="M24 40 Q25 48 30 48 Q35 48 36 40" fill="#F7D6C8"/>
+              <!-- stethoscope -->
+              <circle cx="30" cy="52" r="3" fill="none" stroke="#E0E0E0" stroke-width="1.5"/>
+              <!-- Male doctor -->
+              <circle cx="56" cy="24" r="10" fill="#F5C5B8"/>
+              <path d="M42 72 Q46 52 56 50 Q66 52 70 72" fill="#A0C4E8"/>
+              <path d="M50 42 Q51 50 56 50 Q61 50 62 42" fill="#F5C5B8"/>
+              <circle cx="56" cy="54" r="3" fill="none" stroke="#E0E0E0" stroke-width="1.5"/>
+              <!-- Hair female -->
+              <path d="M22 18 Q24 12 30 11 Q36 12 38 18" fill="#3A2820"/>
+              <!-- Hair male -->
+              <path d="M48 20 Q50 15 56 14 Q62 15 64 20" fill="#1A1A1A"/>
+            </svg>
+          </div>
+          <!-- Text -->
+          <div class="ml-[90px] pr-10 flex flex-col justify-center gap-1">
+            <p class="text-sm font-semibold text-gray-900 leading-[18px]">Know about Surgery costs,<br/>Coverage, and more</p>
+          </div>
+          <!-- Arrow -->
+          <div class="absolute right-4 top-1/2 -translate-y-1/2">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 3l5 5-5 5" stroke="#F27400" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───────────── FILTER BAR ───────────── -->
+      <div class="flex items-center gap-2 px-4 py-4 overflow-x-auto hide-scrollbar border-b border-gray-100" style="height:64px">
+        <!-- All -->
+        <button class="shrink-0 h-8 px-3 rounded-pill border border-gray-50 bg-white shadow-elevation-1 text-[10px] font-normal text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-500" style="min-width:fit-content">
+          All
+        </button>
+        <!-- Medicine (active) -->
+        <button class="shrink-0 h-8 px-3 rounded-pill border border-brand-200 bg-brand-25 shadow-elevation-1 text-[10px] font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-500" style="min-width:fit-content">
+          Medicine
+        </button>
+        <!-- Labs -->
+        <button class="shrink-0 h-8 px-3 rounded-pill border border-gray-50 bg-white shadow-elevation-1 text-[10px] font-normal text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-500">
+          Labs
+        </button>
+        <!-- In-clinic Consults -->
+        <button class="shrink-0 h-8 px-3 rounded-pill border border-gray-50 bg-white shadow-elevation-1 text-[10px] font-normal text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-500">
+          In-clinic Consults
+        </button>
+        <!-- Vision -->
+        <button class="shrink-0 h-8 px-3 rounded-pill border border-gray-50 bg-white shadow-elevation-1 text-[10px] font-normal text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-500">
+          Vision
+        </button>
+      </div>
+
+      <!-- ───────────── ORDERS SECTION ───────────── -->
+      <div class="px-4 pt-4 pb-24">
+        <!-- Section Header -->
+        <h2 class="text-base font-semibold text-gray-900 leading-6 mb-4">Medicine Orders (12)</h2>
+
+        <!-- ── ORDER CARD 1 ── -->
+        <div class="border border-gray-100 rounded-card overflow-hidden bg-white mb-4 relative" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 10px rgba(0,0,0,0.03);">
+          <!-- Diagonal pattern background -->
+          <div class="absolute top-0 left-0 right-0 h-24 overflow-hidden pointer-events-none" aria-hidden="true">
+            <svg width="100%" height="96" viewBox="0 0 328 96" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="diag1" x="0" y="0" width="31" height="31" patternUnits="userSpaceOnUse" patternTransform="rotate(-45.38)">
+                  <rect x="5" y="5" width="21" height="21" rx="2" fill="rgba(214,232,255,0.2)"/>
+                </pattern>
+              </defs>
+              <rect width="328" height="96" fill="url(#diag1)"/>
+            </svg>
+          </div>
+
+          <!-- Card Content -->
+          <div class="relative p-4 flex flex-col gap-3">
+            <!-- Top Row: Order ID + Status Badge -->
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <p class="text-[11px] font-light text-gray-700 leading-5">Order ID: #24562</p>
+                <p class="text-sm font-semibold text-gray-900 leading-5">Mr. Jyotishman Mishra</p>
+              </div>
+              <!-- Status badge -->
+              <span class="shrink-0 text-[10px] font-medium text-orange-500 bg-orange-25 border border-orange-100 rounded-bl-card rounded-tr-card px-2.5 py-0.5 -mt-4 -mr-4 self-start" style="border-radius: 0 12px 0 8px; padding: 4px 10px;">
+                Order Placed
+              </span>
+            </div>
+
+            <!-- ETA Row -->
+            <div class="flex items-center gap-1.5">
+              <!-- Delivery truck icon -->
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="4" width="9" height="7" rx="1" stroke="#F27400" stroke-width="1.2"/>
+                <path d="M10 6h2l2 3v2h-4V6z" stroke="#F27400" stroke-width="1.2" stroke-linejoin="round"/>
+                <circle cx="3.5" cy="11.5" r="1.5" fill="#F27400"/>
+                <circle cx="12.5" cy="11.5" r="1.5" fill="#F27400"/>
+              </svg>
+              <span class="text-[11px] font-light text-gray-700 leading-5">ETA to be Updated</span>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-px bg-gray-50"></div>
+
+            <!-- Medicine Details Row -->
+            <div class="flex gap-3 items-start">
+              <!-- Product thumbnail -->
+              <div class="w-12 h-14 rounded border border-gray-50 bg-gray-50 flex items-center justify-center shrink-0">
+                <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                  <rect x="7" y="2" width="10" height="22" rx="2" stroke="#DBE0E6" stroke-width="1.5"/>
+                  <rect x="7" y="9" width="10" height="3" fill="#DBE0E6"/>
+                  <path d="M10 6h4" stroke="#DBE0E6" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <!-- Details -->
+              <div class="flex-1 flex flex-col gap-1 min-w-0">
+                <!-- Store + Location -->
+                <div class="flex items-center gap-1 flex-wrap">
+                  <div class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <rect x="1.5" y="3" width="9" height="7" rx="1" stroke="#47566A" stroke-width="1.2"/>
+                      <path d="M4.5 3V2a1.5 1.5 0 0 1 3 0v1" stroke="#47566A" stroke-width="1.2"/>
+                    </svg>
+                    <span class="text-[11px] font-normal text-gray-700">Store</span>
+                  </div>
+                  <span class="text-[11px] text-gray-500">•</span>
+                  <div class="flex items-center gap-1 min-w-0">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 1a3.5 3.5 0 0 1 3.5 3.5C9.5 7.5 6 11 6 11S2.5 7.5 2.5 4.5A3.5 3.5 0 0 1 6 1z" stroke="#47566A" stroke-width="1.2"/>
+                      <circle cx="6" cy="4.5" r="1" fill="#47566A"/>
+                    </svg>
+                    <span class="text-[11px] font-normal text-gray-700 truncate">Apollo Pharmacy, HSR...</span>
+                  </div>
+                </div>
+                <!-- Medicine list -->
+                <ul class="flex flex-col gap-0.5">
+                  <li class="text-[11px] font-light text-gray-700 leading-5">• (2) Gemcal XT Tablet</li>
+                  <li class="text-[11px] font-light text-gray-700 leading-5">• (2) Paracetamol 650 mg
+                    <span class="text-brand-500 font-medium"> +2 more</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Track Order Button -->
+            <button class="w-full h-11 rounded-card border border-brand-500 text-brand-500 text-sm font-semibold leading-5 tracking-wide bg-white hover:bg-brand-25 active:bg-brand-25 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1" aria-label="Track Order">
+              Track Order
+            </button>
+          </div>
+        </div>
+
+        <!-- ── ORDER CARD 2 ── -->
+        <div class="border border-gray-100 rounded-card overflow-hidden bg-white mb-4 relative" style="box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 10px rgba(0,0,0,0.03);">
+          <!-- Diagonal pattern background -->
+          <div class="absolute top-0 left-0 right-0 h-24 overflow-hidden pointer-events-none" aria-hidden="true">
+            <svg width="100%" height="96" viewBox="0 0 328 96" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="diag2" x="0" y="0" width="31" height="31" patternUnits="userSpaceOnUse" patternTransform="rotate(-45.38)">
+                  <rect x="5" y="5" width="21" height="21" rx="2" fill="rgba(214,232,255,0.2)"/>
+                </pattern>
+              </defs>
+              <rect width="328" height="96" fill="url(#diag2)"/>
+            </svg>
+          </div>
+
+          <!-- Card Content -->
+          <div class="relative p-4 flex flex-col gap-3">
+            <!-- Top Row: Order ID + Status Badge -->
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <p class="text-[11px] font-light text-gray-700 leading-5">Order ID: #24562</p>
+                <p class="text-sm font-semibold text-gray-900 leading-5">Mr. Jyotishman Mishra</p>
+              </div>
+              <!-- Status badge -->
+              <span class="shrink-0 text-[10px] font-medium text-orange-500 bg-orange-25 border border-orange-100 -mt-4 -mr-4 self-start" style="border-radius: 0 12px 0 8px; padding: 4px 10px;">
+                Order in Progress
+              </span>
+            </div>
+
+            <!-- Date-Time Row -->
+            <div class="flex items-center gap-1.5">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="4" width="9" height="7" rx="1" stroke="#47566A" stroke-width="1.2"/>
+                <path d="M10 6h2l2 3v2h-4V6z" stroke="#47566A" stroke-width="1.2" stroke-linejoin="round"/>
+                <circle cx="3.5" cy="11.5" r="1.5" fill="#47566A"/>
+                <circle cx="12.5" cy="11.5" r="1.5" fill="#47566A"/>
+              </svg>
+              <span class="text-[11px] font-light text-gray-700 leading-5">30-May-2024 &bull; 10:15 AM</span>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-px bg-gray-50"></div>
+
+            <!-- Medicine Details Row -->
+            <div class="flex gap-3 items-start">
+              <!-- Product thumbnail -->
+              <div class="w-12 h-14 rounded border border-gray-50 bg-gray-50 flex items-center justify-center shrink-0">
+                <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                  <rect x="7" y="2" width="10" height="22" rx="2" stroke="#DBE0E6" stroke-width="1.5"/>
+                  <rect x="7" y="9" width="10" height="3" fill="#DBE0E6"/>
+                  <path d="M10 6h4" stroke="#DBE0E6" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <!-- Details -->
+              <div class="flex-1 flex flex-col gap-1 min-w-0">
+                <!-- Store + Location -->
+                <div class="flex items-center gap-1 flex-wrap">
+                  <div class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <rect x="1.5" y="3" width="9" height="7" rx="1" stroke="#47566A" stroke-width="1.2"/>
+                      <path d="M4.5 3V2a1.5 1.5 0 0 1 3 0v1" stroke="#47566A" stroke-width="1.2"/>
+                    </svg>
+                    <span class="text-[11px] font-normal text-gray-700">Store</span>
+                  </div>
+                  <span class="text-[11px] text-gray-500">•</span>
+                  <div class="flex items-center gap-1 min-w-0">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 1a3.5 3.5 0 0 1 3.5 3.5C9.5 7.5 6 11 6 11S2.5 7.5 2.5 4.5A3.5 3.5 0 0 1 6 1z" stroke="#47566A" stroke-width="1.2"/>
+                      <circle cx="6" cy="4.5" r="1" fill="#47566A"/>
+                    </svg>
+                    <span class="text-[11px] font-normal text-gray-700 truncate">Apollo Pharmacy, HSR...</span>
+                  </div>
+                </div>
+                <!-- Medicine list -->
+                <ul class="flex flex-col gap-0.5">
+                  <li class="text-[11px] font-light text-gray-700 leading-5">• (2) Gemcal XT Tablet</li>
+                  <li class="text-[11px] font-light text-gray-700 leading-5">• (2) Paracetamol 650 mg
+                    <span class="text-brand-500 font-medium"> +2 more</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Track Order Button -->
+            <button class="w-full h-11 rounded-card border border-brand-500 text-brand-500 text-sm font-semibold leading-5 tracking-wide bg-white hover:bg-brand-25 active:bg-brand-25 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1" aria-label="Track Order">
+              Track Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────────── BOTTOM FILTER BAR ───────────── -->
+    <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100" style="height:50px; box-shadow: 0 -1px 0 rgba(0,0,0,0.04), 0 -2px 4px rgba(0,0,0,0.03);">
+      <button class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded" aria-label="Open filters">
+        <!-- Filter icon -->
+        <div class="relative">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M2 5h16M5 10h10M8 15h4" stroke="#252D38" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <!-- Red dot -->
+          <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-red-dot border border-white"></span>
+        </div>
+        <span class="text-sm font-medium text-gray-900">Filter</span>
+      </button>
+    </div>
+
+  </div><!-- /Mobile Shell -->
+
+</body>
+</html>
