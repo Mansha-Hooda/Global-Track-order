@@ -30,7 +30,7 @@ const colors = {
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-type OrderStatus = "Order Placed" | "Order in Progress" | "Dispatched" | "Delivered";
+type OrderStatus = "Order Placed" | "Order in Progress" | "Dispatched" | "Delivered" | "Approved";
 
 type MedicineItem = {
   qty: number;
@@ -48,6 +48,7 @@ type Order = {
   items: MedicineItem[];
   moreCount?: number;
   category: string;
+  vendorName?: string;
 };
 
 type FilterTab = {
@@ -126,16 +127,14 @@ const ORDERS: Order[] = [
   },
   {
     id: "#24566",
-    patient: "Ms. Anjali Rao",
-    status: "Order in Progress",
+    patient: "Mr. Jyotishman Mishra",
+    status: "Approved",
     orderedOn: "22-May-2024",
-    eta: "24-May-2024 · 09:30 AM",
+    eta: "22-May-2024",
+    vendorName: "Lenskart",
     store: "Store",
-    location: "Vision Express, MG Road, Bangalore",
-    items: [
-      { qty: 1, name: "Progressive Lenses" },
-      { qty: 1, name: "Anti-glare Coating" },
-    ],
+    location: "Lenskart, HSR Layout Bangalore",
+    items: [],
     category: "vision",
   },
 ];
@@ -147,6 +146,8 @@ function getStatusStyle(status: OrderStatus) {
   switch (status) {
     case "Delivered":
       return { bg: "#f0fdf4", text: "#166534", border: "#bbf7d0" };
+    case "Approved":
+      return { bg: "#F1F8F5", text: "#0F7A48", border: "#bbf7d0" };
     case "Dispatched":
       return { bg: "#eff6ff", text: "#1d4ed8", border: "#bfdbfe" };
     default:
@@ -514,8 +515,7 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
           </div>
 
           {/* ETA / delivery status */}
-          <div className="flex items-center" style={{ gap: 4 }}>
-            <DeliveryIcon color={order.status === "Order Placed" ? "#f27400" : colors.gray700} />
+          {order.category === "vision" ? (
             <span
               style={{
                 fontSize: 12,
@@ -527,7 +527,22 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
             >
               {order.eta}
             </span>
-          </div>
+          ) : (
+            <div className="flex items-center" style={{ gap: 4 }}>
+              <DeliveryIcon color={order.status === "Order Placed" ? "#f27400" : colors.gray700} />
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 300,
+                  color: colors.textPrimary,
+                  fontFamily: "'Lexend Deca', sans-serif",
+                  lineHeight: "20px",
+                }}
+              >
+                {order.eta}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Divider */}
@@ -538,23 +553,82 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
           className="flex items-start"
           style={{ gap: 12, paddingLeft: 16, paddingRight: 16 }}
         >
-          {/* Medicine bottle thumbnail */}
+          {/* Thumbnail */}
           <div
-            className="shrink-0 flex items-center justify-center"
+            className="shrink-0 flex flex-col items-center justify-center"
             style={{
-              width: 64,
-              height: 64,
+              width: order.category === "vision" ? 42 : 64,
+              height: order.category === "vision" ? 42 : 64,
               borderRadius: 8,
               border: `1.24px solid ${colors.gray100}`,
               background: colors.white,
+              gap: 3,
+              overflow: "hidden",
             }}
           >
-            <MedicineBottleIcon />
+            {order.category === "vision" ? (
+              <>
+                <img src="/lenskart-glasses.svg" alt="" style={{ width: 22, height: 10 }} />
+                <img src="/lenskart-text.svg" alt="lenskart" style={{ width: 22, height: 5 }} />
+              </>
+            ) : (
+              <MedicineBottleIcon />
+            )}
           </div>
 
           {/* Store + items */}
           <div className="flex flex-col min-w-0" style={{ gap: 2, flex: 1 }}>
             {/* Store row */}
+            {order.category === "vision" ? (
+              <div className="flex flex-col min-w-0" style={{ gap: 2 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 400,
+                    color: colors.gray900,
+                    fontFamily: "'Lexend Deca', sans-serif",
+                    lineHeight: "20px",
+                  }}
+                >
+                  {order.vendorName}
+                </span>
+                <div className="flex items-center min-w-0" style={{ gap: 4 }}>
+                  <div className="flex items-center shrink-0" style={{ gap: 2 }}>
+                    <img src="/icon-store.svg" alt="" style={{ width: 12, height: 12 }} />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 400,
+                        color: colors.gray700,
+                        fontFamily: "'Lexend Deca', sans-serif",
+                        lineHeight: "20px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.store}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: 14, color: colors.gray700, fontWeight: 300, fontFamily: "'Lexend Deca', sans-serif" }}>•</span>
+                  <div className="flex items-center min-w-0" style={{ gap: 2 }}>
+                    <img src="/icon-location.svg" alt="" style={{ width: 12, height: 12, flexShrink: 0 }} />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 400,
+                        color: colors.gray700,
+                        fontFamily: "'Lexend Deca', sans-serif",
+                        lineHeight: "20px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : (
             <div className="flex items-center" style={{ gap: 4, height: 20 }}>
               <div className="flex items-center" style={{ gap: 2 }}>
                 <StoreIcon />
@@ -599,9 +673,10 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
                 </span>
               </div>
             </div>
+            )}
 
             {/* Items list */}
-            <div className="flex flex-col" style={{ gap: 2 }}>
+            {order.category !== "vision" && <div className="flex flex-col" style={{ gap: 2 }}>
               {order.items.map((item, idx) => {
                 const isLast = idx === order.items.length - 1;
                 return (
@@ -643,7 +718,7 @@ function OrderCard({ order, patternId }: { order: Order; patternId: string }) {
                   </div>
                 );
               })}
-            </div>
+            </div>}
           </div>
         </div>
 
